@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+  <style>
+    body {
+        background-color: #426B1F;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        color: #426B1F;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #e8f3e3; /* светло-зелёный фон */
+        color: #2f4716; /* тёмный зелёный текст */
+    }
+
+    .total {
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: #426B1F;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 12px 20px;
+        background: #426B1F;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        margin-right: 10px;
+        transition: 0.3s;
+    }
+
+    .button:hover {
+        background: #36571a; /* более тёмный зелёный */
+    }
+
+    .button-danger {
+        background: #a94442;
+    }
+
+    .button-danger:hover {
+        background: #8a2e2e;
+    }
+</style>
+
+</head>
+<body>
+<div class="content">
+{% include "main/partials/navbar.html" %}
+<div class="container">
+    <h2>Моя корзина</h2>
+
+    {% if items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                    <th>Количество</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.product.price }} ₸</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.get_subtotal}} ₸</td>
+                    <td><form method="post" action="{% url 'add_to_cart' item.product.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" title="Добавить ещё" style="
+                    background: none;
+                    border: none;
+                    color: #ff6b81;
+                    font-size: 20px;
+                    cursor: pointer;
+                    ">➕</button>
+                    </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total">Итого: {{ total_price }} ₸</p>
+
+        <a href="{% url 'checkout' %}" class="button">Оформить заказ</a>
+        <a href="{% url 'clear_basket' %}" class="button button-danger">Очистить корзину</a>
+    {% else %}
+        <p>Корзина пуста.</p>
+    {% endif %}
+</div>
+  {% include "main/partials/footer.html" %}
+</div>
+
+</body>
+
+</html>

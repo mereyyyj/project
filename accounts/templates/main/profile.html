@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f8f1; /* Светлый фон */
+        margin: 0;
+        padding: 0;
+        color: #2c1a1d;
+    }
+
+    .profile-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.left-section {
+    flex-shrink: 0;
+}
+
+.initial-placeholder {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid #426B1F;
+    font-size: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #426B1F;
+    font-family: serif;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #426B1F;
+}
+
+.info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.info-section h2, .info-section h3 {
+    margin: 0;
+    font-weight: normal;
+    color: #000;
+}
+
+.profile-button {
+    background-color: #4d6f3c;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-button:hover {
+    background-color: #3b532a;
+}
+
+.logout-button {
+    background: transparent;
+    color: #426B1F;
+    border: 2px solid #426B1F;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.settings-icon img {
+    width: 35px;
+    height: 35px;
+}
+
+.quote {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #426B1F;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+    h1 {
+        font-size: 28px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #426B1F; /* Основной зелёный цвет */
+    }
+
+
+
+    .bio-section h3,
+    .details-section h3 {
+        color: #426B1F; /* Основной зелёный цвет */
+        margin-bottom: 10px;
+    }
+
+    .bio-section p,
+    .details-section p {
+        line-height: 1.6;
+    }
+
+    .social-icons a {
+        display: inline-block;
+        margin: 5px 0;
+        text-decoration: none;
+        color: #426B1F; /* Основной зелёный цвет */
+        font-weight: bold;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    form input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+.profile-icon {
+    width: 50px; /* Размер круга */
+    height: 50px; /* Размер круга */
+    border-radius: 50%; /* Сделать кругом */
+    overflow: hidden; /* Обрезать все, что выходит за границы круга */
+    background-color: #ffb6c9; /* Цвет фона, если фото не загружено */
+    border: 2px solid #fff; /* Белая рамка вокруг фото */
+    margin-right: 10px;
+}
+
+.profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обрезка изображения, чтобы оно поместилось в круг */
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="content">
+    {% include "main/partials/navbar.html" %}
+
+<div class="profile-container">
+    <div class="left-section">
+    {% if user.profile_picture %}
+        <img class="profile-picture" src="{{ user.profile_picture.url }}" alt="Фото профиля">
+    {% else %}
+        <div class="initial-placeholder">
+            {{ user.username|default:"U"|slice:":1" }}
+        </div>
+    {% endif %}
+</div>
+
+    <div class="info-section">
+        <h2 class="username">{{ user.username }}</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.profile_picture.label_tag }}
+            {{ form.profile_picture }}
+            <button type="submit" class="profile-button">Сохранить</button>
+        </form>
+
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">Выйти</button>
+            </form>
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+<div class="quote">
+    "A healthy diet is not a restriction, but self—care. Each dish is a step towards the best version of you."
+</div>
+
+
+{% include "main/partials/footer.html" %}
+</div>
+
+</body>
+</html>

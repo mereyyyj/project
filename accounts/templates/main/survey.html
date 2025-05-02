@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Опрос Glow Beauty</title>
+    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+    <style>
+    body {
+        background-color: #f0f9f0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .survey-container {
+        max-width: 600px;
+        margin: 60px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(66, 107, 31, 0.3);
+    }
+
+    h2 {
+        text-align: center;
+        color: #426B1F;
+        margin-bottom: 30px;
+    }
+
+    form p {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px 15px;
+        margin-top: 6px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .button {
+        background-color: #426B1F;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        margin: 0 auto;
+        margin-top: 25px;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #36571a;
+    }
+</style>
+
+</head>
+<body>
+<div class="content">
+    {% include "main/partials/navbar.html" %}
+    <main class="main-content">
+        <div class="survey-container">
+            <h2>Счетчик колорий</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button">Отправить</button>
+            </form>
+        </div>
+    </main>
+    {% include "main/partials/footer.html" %}
+</div>
+</body>
+</html>

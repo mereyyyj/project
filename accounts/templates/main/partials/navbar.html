@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'account/css/navbar.css' %}">
+<nav class="navbar">
+
+  <div class="navbar-left">
+    <h1 class="logo"><a href="{% url 'index' %}">Smart Power supply</a></h1>
+  </div>
+  <div class="navbar-center">
+      <a href="{% url 'chat_combined' %}">AI consultant</a>
+      <a href="{% url 'about' %}">About us</a>
+      <button class="theme-toggle-btn" onclick="toggleTheme()">🌗 Skin</button>
+
+  </div>
+  <div class="navbar-right">
+    <a href="{% url 'basket' %}" class="btn-green">My basket</a>
+      <div class="icon-btn">
+          <a href="{% url 'profile' %}">
+      <img src="{% static 'images/logo.png' %}" alt="Icon" />
+    </a>
+      </div>
+
+  </div>
+<script>
+function toggleTheme() {
+  const content = document.querySelector('.content');
+  const isDark = content.classList.contains('dark-mode');
+  const themeButton = document.querySelector('.theme-toggle-btn');
+
+  if (isDark) {
+    content.classList.remove('dark-mode');
+    content.classList.add('light-mode');
+    localStorage.setItem('theme', 'light');
+    themeButton.textContent = '🌗 Skin';
+  } else {
+    content.classList.remove('light-mode');
+    content.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
+    themeButton.textContent = '🌗 Skin';
+  }
+}
+
+// Автоматическое применение темы при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  const content = document.querySelector('.content');
+  const themeButton = document.querySelector('.theme-toggle-btn');
+
+  content.classList.add(savedTheme + '-mode');
+  themeButton.textContent = '🌗 Skin';
+});
+</script>
+
+
+</nav>

@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+</head>
+<body>
+<div class="content">
+{% include "main/partials/navbar.html" %}
+
+    <main class="main-content">
+        <div class="slider">
+
+    <div class="slides">
+        <div class="slide">
+            <img src="{% static 'images/slide1.png' %}" alt="Slide 1">
+            <div class="slide-text">Food can be your fuel or your brake. Choose wisely</div>
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slide2.png' %}" alt="Slide 2">
+            <div class="slide-text">Healthy eating is not a restriction, it's self-care</div>
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slide3.png' %}" alt="Slide 3">
+            <div class="slide-text">You are what you eat. Feed yourself like you love yourself</div>
+        </div>
+    </div>
+            <button class="slide-btn prev">&#10094;</button> <!-- ← -->
+            <button class="slide-btn next">&#10095;</button> <!-- → -->
+
+</div>
+
+<div class="survey-section">
+    <h2>Пройдите опрос чтобы мы помогли с выбором рациона</h2>
+    <form action="{% url 'survey' %}">
+        <button type="submit" class="survey-btn">Пройти</button>
+    </form>
+</div>
+
+    <div class="ration-grid">
+      {% for catalog in catalogs %}
+        <div class="ration-card">
+          <img src="{{ catalog.image.url }}" alt="{{ catalog.title }}">
+          <h3>{{ catalog.title }}</h3>
+          <p class="price">{{ catalog.price }} / kzt</p>
+          <p class="about product">{{ catalog.about_product }}</p>
+        <form method="post" action="{% url 'add_to_cart' catalog.id %}">
+                {% csrf_token %}
+                <button type="submit" style="
+                    background: #426B1F;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    margin-top: 10px;
+                    transition: background 0.3s;
+                ">Добавить в корзину</button>
+            </form>
+        </div>
+      {% endfor %}
+    </div>
+
+
+<button id="openCalculator" class="cosmo-btn" style="margin: 40px auto; display: block;">Открыть UX Калькулятор</button>
+
+
+
+
+<div id="calculatorModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2 style="text-align: center; color: #426B1F;">UX Калькулятор</h2>
+
+    <!-- Закон Хика -->
+    <form id="hickForm" style="margin-bottom: 30px;">
+      <h3>Закон Хика</h3>
+      <label>Количество вариантов (n):</label>
+      <input type="number" id="choices" min="1" required>
+      <label>Коэффициент b (по умолчанию 0.3):</label>
+      <input type="number" id="bHick" step="0.01" value="0.3">
+      <button type="submit" class="cosmo-btn">Рассчитать</button>
+      <p id="hickResult" style="margin-top: 10px;"></p>
+    </form>
+
+    <!-- Закон Фитса -->
+    <form id="fittsForm">
+      <h3>Закон Фитса</h3>
+      <label>Расстояние до цели (D):</label>
+      <input type="number" id="distance" required>
+      <label>Ширина цели (W):</label>
+      <input type="number" id="width" required>
+      <label>Коэффициент a (по умолчанию 0.2):</label>
+      <input type="number" id="aFitts" step="0.01" value="0.2">
+      <label>Коэффициент b (по умолчанию 0.1):</label>
+      <input type="number" id="bFitts" step="0.01" value="0.1">
+      <button type="submit" class="cosmo-btn">Рассчитать</button>
+      <p id="fittsResult" style="margin-top: 10px;"></p>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+</main>
+
+
+    {% include "main/partials/footer.html" %}
+
+</div>
+<script>
+const modal = document.getElementById("calculatorModal");
+  const openBtn = document.getElementById("openCalculator");
+  const closeBtn = document.getElementById("closeModal");
+
+  openBtn.onclick = () => modal.style.display = "block";
+  closeBtn.onclick = () => modal.style.display = "none";
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+// Закон Хика
+  document.getElementById("hickForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const n = parseFloat(document.getElementById("choices").value);
+    const b = parseFloat(document.getElementById("bHick").value) || 0.3;
+    const result = b * Math.log2(n + 1);
+    document.getElementById("hickResult").textContent = `Время реакции: ${result.toFixed(3)} секунд`;
+  });
+
+  // Закон Фитса
+  document.getElementById("fittsForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const D = parseFloat(document.getElementById("distance").value);
+    const W = parseFloat(document.getElementById("width").value);
+    const a = parseFloat(document.getElementById("aFitts").value) || 0.2;
+    const b = parseFloat(document.getElementById("bFitts").value) || 0.1;
+    const result = a + b * Math.log2(2 * D / W);
+    document.getElementById("fittsResult").textContent = `Время движения: ${result.toFixed(3)} секунд`;
+  });
+
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const slidesContainer = document.querySelector(".slides");
+    const slides = document.querySelectorAll(".slide");
+    const prevBtn = document.querySelector(".slide-btn.prev");
+    const nextBtn = document.querySelector(".slide-btn.next");
+
+    let currentIndex = 0;
+    const slideCount = slides.length;
+
+    slidesContainer.style.width = `${slideCount * 100}vw`;
+    slides.forEach(slide => {
+      slide.style.width = `100vw`;
+    });
+
+    function goToSlide(index) {
+      currentIndex = (index + slideCount) % slideCount;
+      slidesContainer.style.transform = `translateX(-${currentIndex * 100}vw)`;
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    // Автопереключение
+    let slideInterval = setInterval(nextSlide, 4000);
+
+    // Кнопки
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      resetInterval();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      resetInterval();
+    });
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 4000);
+    }
+  });
+</script>
+
+
+
+</body>
+</html>
+
+

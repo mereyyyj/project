@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О нас | Glow Beauty</title>
+  <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #ffffff;
+      color: #222;
+    }
+
+    .who-page {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex: 1;
+      padding: 80px;
+      gap: 60px;
+    }
+
+    .who-image img {
+      width: 440px;
+      height: auto;
+      border: 2px solid #426B1F;
+      border-radius: 10px;
+    }
+
+    .who-text {
+      max-width: 620px;
+    }
+
+    .who-text h2 {
+      font-size: 64px;
+      line-height: 1.1;
+      font-weight: 400;
+      margin: 0 0 20px;
+        color: #426B1F;
+    }
+
+
+    .who-text p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .who-page {
+        flex-direction: column;
+        padding: 40px 20px;
+      }
+
+      .who-image img {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .who-text h2 {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="content">
+    {% include "main/partials/navbar.html" %}
+  <main class="who-page">
+    <div class="who-image">
+      <img src="{% static 'images/lumi.png' %}" alt="lumi">
+    </div>
+    <div class="who-text">
+     <h2>Lumi</h2>
+
+<p>
+В <strong>Lumi</strong> мы объединяем технологии и заботу о здоровье. Наша цель — сделать правильное питание умным, персональным и удобным для каждого.
+</p>
+
+<p>
+С помощью ИИ-консультанта Lumi ты получаешь сбалансированный рацион, подобранный под твои цели, предпочтения, аллергию и уровень активности. Всё — без подсчётов и сложностей.
+</p>
+
+<p>
+Мы готовим вкусные и полезные ПП-блюда из свежих натуральных продуктов и доставляем их прямо к тебе домой или в офис. А Lumi поможет отслеживать прогресс, давать советы и поддерживать мотивацию.
+</p>
+
+<p>
+В меню — разнообразные опции: классические рационы, вегетарианские, безглютеновые и низкоуглеводные варианты. Всё легко адаптируется под тебя.
+</p>
+
+<p>
+Lumi — это больше, чем сервис доставки. Это твой умный помощник в пути к здоровью, энергии и гармонии. Начни заботиться о себе с первого приёма пищи 🌿
+</p>
+
+
+    </div>
+  </main>
+{% include "main/partials/footer.html" %}
+</div>
+
+</body>
+</html>

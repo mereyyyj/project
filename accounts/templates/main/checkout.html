@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Оформление заказа</title>
+    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+    <style>
+    body {
+        background-color: #426B1F;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        color: #426B1F;
+    }
+
+    .total {
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: #426B1F;
+    }
+
+    .button {
+        background: #426B1F;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .button:hover {
+        background: #36571a; /* немного темнее при наведении */
+    }
+</style>
+
+</head>
+<body>
+<div class="content">
+{% include "main/partials/navbar.html" %}
+<div class="container">
+    <h2>Подтверждение заказа</h2>
+
+    {% for item in cart_items %}
+        <p><strong>{{ item.product.title }}</strong> — {{ item.quantity }} шт. = {{ item.get_subtotal }} ₸</p>
+    {% endfor %}
+
+    <p class="total">Итого к оплате: {{ total_price }} ₸</p>
+
+    <form id="payment-form">
+    {% csrf_token %}
+    <input type="text" name="full_name" placeholder="ФИО" required>
+    <input type="text" name="card_number" placeholder="Номер карты" required>
+    <input type="text" name="expiration_date" placeholder="MM/YY" required>
+    <input type="text" name="cvv" placeholder="CVV" required>
+    <button type="submit" class="button">Купить</button>
+</form>
+</div>
+{% include "main/partials/footer.html" %}
+
+<div id="success-modal" style="
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+">
+    ✅ Оплата прошла успешно!
+</div>
+
+<script>
+document.getElementById("payment-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch("{% url 'checkout' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+        },
+        body: formData
+    })
+    .then(response => response.ok ? response.text() : Promise.reject())
+    .then(data => {
+        const modal = document.getElementById("success-modal");
+        modal.style.display = "block";
+
+        // Плавное исчезновение
+        setTimeout(() => {
+            modal.style.opacity = "0";
+        }, 2500);
+
+        // Перенаправление на главную
+        setTimeout(() => {
+            window.location.href = "{% url 'catalog' %}";
+        }, 3000); // редирект через 3 секунды
+
+        form.reset();
+    })
+    .catch(error => {
+        alert("Ошибка при оплате");
+        console.error(error);
+    });
+});
+</script>
+
+</div>
+
+</body>
+</html>

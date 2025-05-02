@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>All Rations</title>
+  <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+</head>
+<body>
+<div class="content">
+    {% include "main/partials/navbar.html" %}
+    <div class="ration-header">
+    <div class="ration-title">
+        <h1>Products</h1>
+        <p><strong>Fresh</strong> — {{ catalogs.first.date_added }}</p>
+    </div>
+    <div class="ration-filters">
+        <button class="filter-btn active">Default</button>
+        <button class="filter-btn">A-Z</button>
+        <button class="filter-btn">List view</button>
+    </div>
+    </div>
+
+    <div class="ration-grid">
+      {% for catalog in catalogs %}
+        <div class="ration-card">
+          <img src="{{ catalog.image.url }}" alt="{{ catalog.title }}">
+          <h3>{{ catalog.title }}</h3>
+          <p class="price">{{ catalog.price }} / kzt</p>
+          <p class="about product">{{ catalog.about_product }}</p>
+        <form method="post" action="{% url 'add_to_cart' catalog.id %}">
+                {% csrf_token %}
+                <button type="submit" style="
+                    background: #426B1F;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    margin-top: 10px;
+                    transition: background 0.3s;
+                ">Добавить в корзину</button>
+            </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% include "main/partials/footer.html" %}
+</div>
+
+
+</body>
+</html>
