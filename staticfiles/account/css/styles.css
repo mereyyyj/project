@@ -1,0 +1,512 @@
+/* Reset и базовые стили */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Обертка страницы */
+.content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Темы */
+.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.light-mode .navbar {
+  background-color: #ffffff;
+}
+
+.dark-mode .navbar {
+  background-color: #1e1e1e;
+}
+
+.logo a {
+  text-decoration: none;
+  font-size: 26px;
+  color: #426B1F;
+  font-weight: 600;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar-center a {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.navbar-center a:hover {
+  text-decoration: underline;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-green {
+  background-color: #426B1F;
+  color: white;
+  padding: 10px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn-green:hover {
+  color: black;
+}
+
+.icon-btn img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Кнопка переключения темы */
+.theme-toggle-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.dark-mode .theme-toggle-btn {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Остальные блоки (пример: hero) */
+.hero {
+  text-align: center;
+  padding: 100px 20px 40px;
+}
+
+.hero h1 {
+  font-size: 28px;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.images-section {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px 20px;
+}
+
+.images-section img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.images-section p {
+  font-size: 12px;
+  text-align: center;
+  max-width: 400px;
+  margin: 10px auto 0;
+}
+
+.belief-section {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.belief-section h4 {
+  font-weight: bold;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.belief-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-green {
+  background-color: #426B1F;
+  color: white;
+  padding: 20px 20px;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  line-height: 1.4;
+  margin-top: auto;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-bottom a {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* Карточки рациона */
+.ration-grid {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ration-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  width: 320px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.dark-mode .ration-card {
+  background: #1e1e1e;
+}
+
+.ration-card:hover {
+  transform: translateY(-5px);
+}
+
+.ration-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.ration-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 16px 0 8px;
+}
+
+.price {
+  color: #426B1F;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.ration-location {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+button {
+  background: #426B1F;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: black;
+  color: #426B1F;
+}
+
+.survey-form {
+  max-width: 600px;
+  margin-top: 30px;
+  background-color: #fff0f5;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(66, 107, 31, 0.3);
+}
+
+.survey-form input, .survey-form select, .survey-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.survey-form label {
+  font-weight: 600;
+  color: #444;
+}
+
+.survey-form .cosmo-btn {
+  margin-top: 15px;
+}
+
+.ration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+    background-color: #d2edcc;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.ration-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.ration-title h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.ration-title p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #888;
+}
+
+.ration-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    background-color: #426B1F;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #315015;
+}
+
+.filter-btn.active {
+    background-color: #315015;
+}
+
+.logout-button {
+    background-color: #426B1F;
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}
+
+
+.slider {
+    position: relative;
+    overflow: hidden;
+    width: 100vw; /* ширина — вся ширина экрана */
+    height: auto; /* высота будет зависеть от содержимого (картинки) */
+    margin: 0 auto;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 300vw; /* 3 слайда по ширине */
+}
+
+.slide {
+    width: 100vw; /* каждая картинка на всю ширину */
+    flex-shrink: 0;
+    position: relative;
+}
+
+.slide img {
+    width: 100vw;
+    height: auto;
+    display: block;
+}
+
+.slide-text {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+.slide-btn.prev {
+    left: 20px;
+}
+
+.slide-btn.next {
+    right: 20px;
+}
+
+.slide-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.survey-section {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.survey-section h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.survey-btn {
+    background-color: #4a682f;
+    color: white;
+    font-size: 18px;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.survey-btn:hover {
+    background-color: #3a5526;
+}
+
+.modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 80px auto;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .cosmo-btn {
+      background-color: #4d6f3c;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .cosmo-btn:hover {
+      background-color: #3b532a;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }

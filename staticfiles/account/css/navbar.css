@@ -1,0 +1,172 @@
+
+    /* Общие стили */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Сброс отступов у заголовков */
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Стили для светлой темы (по умолчанию) */
+    .light-mode {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .light-mode .navbar {
+        background-color: #ffffff;
+    }
+
+    .light-mode .logo a {
+        color: #426B1F;
+    }
+
+    .light-mode .navbar-center a {
+        color: #000000;
+    }
+
+    .light-mode .navbar-center a:hover {
+        color: #426B1F;
+        text-decoration: underline;
+    }
+
+    .light-mode .btn-green {
+        background-color: #426B1F;
+        color: #ffffff;
+    }
+
+    .light-mode .btn-green:hover {
+        color: #000000;
+    }
+
+    .light-mode .icon-btn img {
+        filter: brightness(100%);
+    }
+
+    /* Стили для темной темы */
+    .dark-mode {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+
+    .dark-mode .navbar {
+        background-color: #2c2c2c;
+    }
+
+    .dark-mode .logo a {
+        color: #5d9d4e;
+    }
+
+    .dark-mode .navbar-center a {
+        color: #ffffff;
+    }
+
+    .dark-mode .navbar-center a:hover {
+        color: #5d9d4e;
+        text-decoration: underline;
+    }
+
+    .dark-mode .btn-green {
+        background-color: #5d9d4e;
+        color: #ffffff;
+    }
+
+    .dark-mode .btn-green:hover {
+        color: #000000;
+    }
+
+    .dark-mode .icon-btn img {
+        filter: brightness(80%);
+    }
+
+    /* Общие стили для navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 60px;
+        font-family: 'Inter', sans-serif;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Логотип */
+    .logo a {
+        text-decoration: none;
+        font-size: 26px;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    /* Центральная навигация */
+    .navbar-center {
+        display: flex;
+        gap: 30px;
+    }
+
+    .navbar-center a {
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    /* Правая часть (кнопки) */
+    .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .btn-green {
+        padding: 10px 28px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Кнопка с иконкой */
+    .icon-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+    }
+
+    .icon-btn img {
+        width: 50px;
+        height: 50px;
+        transition: filter 0.3s ease;
+    }
+
+    /* Стили для кнопки переключения темы */
+    .theme-toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+
+    .light-mode .theme-toggle-btn {
+        color: #000000;
+    }
+
+    .dark-mode .theme-toggle-btn {
+        color: #ffffff;
+    }
+
