@@ -139,7 +139,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/login/'
 
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-default")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
-
