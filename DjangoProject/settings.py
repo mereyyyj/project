@@ -14,7 +14,7 @@ SECRET_KEY = "django-insecure-oh*)tj#kk12k_9uc%8rd*#td6_0o4*vlq(n!gl36!_8l)u#dna
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['MereyProject.onrender.com']
+ALLOWED_HOSTS = ['mereyproject.onrender.com']
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'Procfile'
@@ -138,8 +138,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'
 
-
-SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-default")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
