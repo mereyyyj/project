@@ -46,7 +46,7 @@ def sign_up(request):
             user.profile_picture = form.cleaned_data.get('profile_picture')
             user.save()
             login(request, user)
-            return redirect('profile')
+            return redirect('Procfile')
         else:
             print(form.errors)  # Логирование ошибок
 
@@ -61,7 +61,7 @@ def log_in(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('profile')  # Перенаправление на профиль
+            return redirect('Procfile')  # Перенаправление на профиль
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/log_in.html', {'form': form})
@@ -73,13 +73,13 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Профиль успешно обновлён!")
-            return redirect('profile')
+            return redirect('Procfile')
         else:
             messages.error(request, "Ошибка при обновлении профиля.")
     else:
         form = ProfileUpdateForm(instance=request.user)
 
-    return render(request, 'main/profile.html', {'form': form})
+    return render(request, 'main/Procfile.html', {'form': form})
 
 
 

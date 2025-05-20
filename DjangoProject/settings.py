@@ -14,10 +14,10 @@ SECRET_KEY = "django-insecure-oh*)tj#kk12k_9uc%8rd*#td6_0o4*vlq(n!gl36!_8l)u#dna
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['MereyProject.onrender.com']
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'Procfile'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Application definition
@@ -128,7 +128,8 @@ from dotenv import load_dotenv
 # Загружаем переменные из .env
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  # Используем переменные окружения
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  # Используем переменные окруженияpip freeze > requirements.txt
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -138,4 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/login/'
 
 
+SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-default")
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
